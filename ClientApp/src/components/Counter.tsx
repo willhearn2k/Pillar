@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import { ApplicationState } from '../store';
 import * as CounterStore from '../store/Counter';
+import Button from '@material-ui/core/Button';
 
 type CounterProps =
     CounterStore.CounterState &
@@ -13,6 +14,9 @@ class Counter extends React.PureComponent<CounterProps> {
     public render() {
         return (
             <React.Fragment>
+                <Button variant="contained" color="primary">
+                    Hello World 3
+                </Button>
                 <h1>Counter</h1>
 
                 <p>This is a simple example of a React component.</p>
