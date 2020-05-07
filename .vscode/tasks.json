@@ -2,16 +2,66 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "build - debug",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/pillar.csproj",
+                "--configuration",
+                "Debug",
+                "${workspaceFolder}/Pillar.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build - release",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "--configuration",
+                "Release",
+                "${workspaceFolder}/Pillar.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "clean - debug",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "clean",
+                "--configuration",
+                "Debug"
+            ]
+        },
+        {
+            "label": "clean - release",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "clean",
+                "--configuration",
+                "Release"
+            ]
+        },
+        {
+            "label": "clean - all",
+            "command": "dotnet",
+            "type": "process",
+            "dependsOn": [
+                "clean - release"
+            ],
+            "args": [
+                "clean",
+                "--configuration",
+                "Debug"
+            ],
+            "problemMatcher": []
         },
         {
             "label": "publish",
