@@ -83,7 +83,7 @@ export const Chrome: React.SFC<ChromeProps> = ({ children }) => {
 				<ListItemIcon>{<InboxIcon />} </ListItemIcon>
 				<ListItemText primary={"Dashboard"} />
 			</ListItem>
-			<ListItem button key={"Players"} component={Link} to='/counter'>
+			<ListItem button key={"Players"} component={Link} to='/player'>
 				<ListItemIcon>{<InboxIcon />} </ListItemIcon>
 				<ListItemText primary={"Players"} />
 			</ListItem>
@@ -99,7 +99,7 @@ export const Chrome: React.SFC<ChromeProps> = ({ children }) => {
 				})}
 			>
 				<div className={classes.drawerHeader} />
-				<Container maxWidth="sm">
+				<Container maxWidth="lg">
 					<Routes/>
 				</Container>
 			</main>
