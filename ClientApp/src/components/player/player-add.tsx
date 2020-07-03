@@ -16,12 +16,16 @@ class PlayerAddDialog extends React.Component<Props> {
 	render() {
     	return (
 			<Dialog open={this.props.open} onClose={this.props.onClose} aria-labelledby="form-dialog-title">
-				<DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+				<DialogTitle id="form-dialog-title">Add Player</DialogTitle>
 				<DialogContent>
 					<DialogContentText>
-						To subscribe to this website, please enter your email address here. We will send updates occasionally.
+						Add new player details.
 					</DialogContentText>
-					<TextField autoFocus margin="dense" id="name" label="Email Address" type="email" fullWidth/>
+					<TextField autoFocus required margin="dense" id="knownas" label="Known As" type="text" fullWidth/>
+					<TextField required  margin="dense" id="mobile" label="Mobile No." type="tel" fullWidth/>
+					<TextField margin="dense" id="firstname" label="First Name" type="text" fullWidth/>
+					<TextField margin="dense" id="surname" label="Surname" type="text" fullWidth/>
+					<TextField margin="dense" id="email" label="Email" type="email" fullWidth/>
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={this.props.onClose} color="primary">Cancel</Button>

@@ -15,6 +15,15 @@ namespace Pillar.Models
         [Required]
         [MaxLength(20)]
         public string KnownAs { get; set; }
-        public int Mobile { get; set; }    
+        public int Mobile { get; set; }
+        public string Email {get; set; }
+
+        public string FullName 
+        {
+            get 
+            {
+                return string.Concat(FirstName, " ", LastName);
+            }
+        }    
     }
 }
