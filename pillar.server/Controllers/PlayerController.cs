@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Pillar.Models;
-using Pillar.DataContext;
+using Pillar.Server.Models;
+using Pillar.Server.DataContext;
 
-namespace Pillar.Controllers
+namespace Pillar.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

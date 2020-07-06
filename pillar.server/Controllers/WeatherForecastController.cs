@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Pillar.Server.DataContext;
 
 namespace pillar.Controllers
 {
@@ -21,6 +22,9 @@ namespace pillar.Controllers
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
+            PlayerContext context = new PlayerContext();
+            int count = context.Players.Count();
+            count++;
         }
 
         [HttpGet]

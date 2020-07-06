@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build - debug",
-            "program": "${workspaceFolder}/bin/Debug/netcoreapp3.1/pillar.dll",
+            "program": "${workspaceFolder}/pillar.server/bin/Debug/netcoreapp3.1/pillar.server.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,

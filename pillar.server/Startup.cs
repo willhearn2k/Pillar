@@ -7,9 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Pillar.DataContext;
+using Pillar.Server.DataContext;
 
-namespace pillar
+namespace Pillar
 {
     public class Startup
     {
@@ -32,7 +32,7 @@ namespace pillar
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/build";
+                configuration.RootPath = "../pillar.client/build";
             });
         }
 
@@ -65,7 +65,7 @@ namespace pillar
 
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "ClientApp";
+                spa.Options.SourcePath = "pillar.client";
 
                 if (env.IsDevelopment())
                 {

@@ -9,7 +9,7 @@
                 "build",
                 "--configuration",
                 "Debug",
-                "${workspaceFolder}/Pillar.csproj",
+                "${workspaceFolder}/pillar.server/pillar.server.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -23,7 +23,7 @@
                 "build",
                 "--configuration",
                 "Release",
-                "${workspaceFolder}/Pillar.csproj",
+                "${workspaceFolder}/pillar.server/pillar.server.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -69,7 +69,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/pillar.csproj",
+                "${workspaceFolder}/pillar.server/pillar.server.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -82,7 +82,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/pillar.csproj",
+                "${workspaceFolder}/pillar.server/pillar.server.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

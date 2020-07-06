@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Pillar.Models;
+using Pillar.Server.Models;
 
-namespace Pillar.DataContext
+namespace Pillar.Server.DataContext
 {
     public class PlayerContext : DbContext
     {
