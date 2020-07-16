@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using AutoMapper;
 using Pillar.Server.Models;
-using Pillar.Server.DataContext;
+using Pillar.Server.DataContext.Repository;
+using Pillar.Server.Dto;
 
 namespace Pillar.Server.Controllers
 {
@@ -13,64 +15,103 @@ namespace Pillar.Server.Controllers
     [Route("api/[controller]")]
     public class PlayerController : ControllerBase
     {
-        private readonly ILogger<PlayerController> _logger;
-        private PlayerContext playerContext;
+        private readonly ILogger<PlayerController> logger;
+        private IPlayerRepository playerRepository;
 
-        public PlayerController(ILogger<PlayerController> logger, PlayerContext playerContext)
+        private IMapper mapper;
+
+        public PlayerController(ILogger<PlayerController> logger, IPlayerRepository playerRepository, IMapper mapper)
         {
-            _logger = logger;
-            this.playerContext = playerContext;
+            this.logger = logger;
+            this.playerRepository = playerRepository;
+            this.mapper =  mapper;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<Player>> Get()
         {
-            return Ok(playerContext.Players);
+            return Ok(playerRepository.GetAll().OrderBy(p => p.ID).ToList());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetPlayer")]
         public ActionResult<Player> Get(int id)
         {
-            return null;
+            return Ok(playerRepository.Get(id));
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Player player)
+        public IActionResult Post([FromBody] PlayerCreateDto playerCreateDto)
         {
-            try
+            if (playerCreateDto == null || ModelState.IsValid == false)
             {
-                if (player == null || ModelState.IsValid == false)
-                {
-                    return BadRequest();
-                }
+                return BadRequest();
+            }   
 
-                this.playerContext.Add(player);
+            var savedPlayer = mapper.Map<Player>(playerCreateDto);
 
-                if(this.playerContext.SaveChanges() == 0)
-                {
-                    return StatusCode(500, "Unable to save player");
-                }
-
-                return CreatedAtRoute("Get", new { playerId = player.ID }, player);
-            }
-            catch(Exception ex)
+            playerRepository.Create(savedPlayer);
+            
+            if (playerRepository.Save() == false)
             {
-                string exception = ex.Message;
-                return null;
+                return StatusCode(500, "Unable to Save Player");
             }
 
+            return CreatedAtRoute("GetPlayer", new { savedPlayer.ID }, savedPlayer);;
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Player player)
+        public IActionResult Put(int id, [FromBody] PlayerUpdateDto playerUpdateDto)
         {
+            if (playerUpdateDto == null || ModelState.IsValid == false)
+            {
+                return BadRequest();
+            }
 
+            if (playerRepository.Exists(id) == false)
+            {
+                return NotFound();
+            }
+
+            Models.Player playerToUpdate = playerRepository.Get(id);
+
+            if (playerToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            mapper.Map(playerUpdateDto, playerToUpdate);
+
+            if (!playerRepository.Save())
+            {
+                return StatusCode(500, "A problem occured");
+            }
+
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public void Delete (int id)
+        public IActionResult Delete (int id)
         {
+            if (playerRepository.Exists(id) == false)
+            {
+                return NotFound();
+            }
 
+            Models.Player playerToDelete = playerRepository.Get(id);
+
+            if (playerToDelete == null)
+            {
+                return NotFound();
+            }
+
+            playerRepository.Delete(playerToDelete);
+
+            if (!playerRepository.Save())
+            {
+                return StatusCode(500, "A problem happened while handling your request.");
+            }
+
+            return NoContent();
         }
     }
 }

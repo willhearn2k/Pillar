@@ -9,20 +9,20 @@ namespace Pillar.Server.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         [MaxLength(20)]
-        public string LastName { get; set; }
+        public string Surname { get; set; }
         [MaxLength(20)]
         public string FirstName { get; set; }
         [Required]
         [MaxLength(20)]
         public string KnownAs { get; set; }
-        public int Mobile { get; set; }
+        public string Mobile { get; set; }
         public string Email {get; set; }
 
         public string FullName 
         {
             get 
             {
-                return string.Concat(FirstName, " ", LastName);
+                return string.Concat(this.FirstName, " ", this.Surname);
             }
         }    
     }

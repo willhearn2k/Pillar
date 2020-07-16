@@ -7,7 +7,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Pillar.Server.DataContext;
+using AutoMapper;
+
+using Pillar.Server.DataContext.Context;
+using Pillar.Server.DataContext.Repository;
 
 namespace Pillar
 {
@@ -24,10 +27,12 @@ namespace Pillar
         public void ConfigureServices(IServiceCollection services)
         {
             string connectionstring = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<PlayerContext>(options => 
+            services.AddDbContext<PillarContext>(options => 
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-
+            services.AddScoped<IPlayerRepository, PlayerRepository>();
+            
             services.AddControllersWithViews();
+            services.AddAutoMapper(typeof(Startup));
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -53,7 +58,6 @@ namespace Pillar
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

@@ -22,9 +22,6 @@ namespace pillar.Controllers
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
-            PlayerContext context = new PlayerContext();
-            int count = context.Players.Count();
-            count++;
         }
 
         [HttpGet]
